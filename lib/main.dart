@@ -51,17 +51,42 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
+        body: SafeArea(
+            child: ListView.builder(
+                itemCount: Recipe.samples.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return buildRecipeCard(Recipe.samples[index]);
+                })));
+  }
+
+  Widget buildRecipeCard(Recipe recipe) {
+    return Card(
+      elevation: 2.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Image(
+              image: AssetImage(recipe.imageUrl),
+            ),
+            SizedBox(height: 14.0),
+            Text(recipe.label,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Palatino'
+            ),)
+          ],
+        ),
       ),
-      body: SafeArea(
-          child: ListView.builder(
-              itemCount: Recipe.samples.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Text(Recipe.samples[index].label);
-              }))
     );
   }
+
+
 }
